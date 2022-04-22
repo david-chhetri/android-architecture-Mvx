@@ -4,24 +4,23 @@ import android.view.View;
 
 import com.techyourchance.mvc.questions.Question;
 
-import java.util.List;
-
 /**
  * Created by David Chhetri on 22,April,2022
  */
-public interface QuestionsListViewMvc {
-
-    public interface MeroListener {
+public interface QuestionsListItemViewMvc {
+    public interface Listener{
         void onQuestionClicked(Question question);
-
     }
-    void registerListener(MeroListener listener);
 
-    void unregisterListener(MeroListener listener);
+    void bindQuestion(Question question);
+
+    void registerListener(Listener listener);
+
+    void unregisterListener(Listener listener);
 
     View getRoot();
 
-    void bindQuestions(List<Question> questions);
+
 
 
 }

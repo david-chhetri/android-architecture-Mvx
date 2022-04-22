@@ -26,19 +26,24 @@ public class QuestionsListAdapter extends ArrayAdapter<Question> {
         mOnQuestionClickListener = onQuestionClickListener;
     }
 
+    private QuestionsListItemViewMvc mViewMvc;
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.layout_question_list_item, parent, false);
+             mViewMvc = new QuestionsListItemViewMvcImpl(
+                    LayoutInflater.from(getContext()), parent);
+             convertView = mViewMvc.getRoot();
+             convertView.setTag(mViewMvc);
+
         }
 
         final Question question = getItem(position);
 
         // bind the data to views
-        TextView txtTitle = convertView.findViewById(R.id.txt_title);
-        txtTitle.setText(question.getTitle());
+        mViewMvc = (QuestionsListItemViewMvc) convertView.getTag();
+        mViewMvc.bindQuestion(question);
 
         // set listener
         convertView.setOnClickListener(new View.OnClickListener() {
