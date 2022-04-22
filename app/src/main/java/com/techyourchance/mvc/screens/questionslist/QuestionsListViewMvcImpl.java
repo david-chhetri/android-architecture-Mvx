@@ -2,6 +2,8 @@ package com.techyourchance.mvc.screens.questionslist;
 
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +18,8 @@ import java.util.List;
 /**
  * Currently Adapter is the point where user initiates
  */
-public class QuestionsListViewMvcImpl implements QuestionsListAdapter.OnQuestionClickListener, QuestionsListViewMvc {
+public class QuestionsListViewMvcImpl implements
+        QuestionsListViewMvc, QuestionsRecyclerAdapter.Listener {
 
 
     private List<MeroListener> mListeners = new ArrayList<>(1);
@@ -28,15 +31,16 @@ public class QuestionsListViewMvcImpl implements QuestionsListAdapter.OnQuestion
     public void unregisterListener(MeroListener listener){
         mListeners.remove(listener);
     }
-    private ListView mLstQuestions;
-    private QuestionsListAdapter mQuestionsListAdapter;
+    private RecyclerView mRecyclerView;
+    private QuestionsRecyclerAdapter mAdapter;
     private View mRootView;
 
     public QuestionsListViewMvcImpl(LayoutInflater inflater, ViewGroup parent) {
         mRootView = inflater.inflate(R.layout.layout_questions_list, parent, false);
-        mLstQuestions = findViewById(R.id.lst_questions);
-        mQuestionsListAdapter = new QuestionsListAdapter(getContext(), this);
-        mLstQuestions.setAdapter(mQuestionsListAdapter);
+        mRecyclerView = findViewById(R.id.recycler_questions);
+        mAdapter = new QuestionsRecyclerAdapter(inflater, this);
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     private Context getContext() {
@@ -54,9 +58,8 @@ public class QuestionsListViewMvcImpl implements QuestionsListAdapter.OnQuestion
 
     @Override
     public void bindQuestions(List<Question> questions) {
-        mQuestionsListAdapter.clear();
-        mQuestionsListAdapter.addAll(questions);
-        mQuestionsListAdapter.notifyDataSetChanged();
+        mAdapter.bindQuestions(questions);
+
     }
 
 
