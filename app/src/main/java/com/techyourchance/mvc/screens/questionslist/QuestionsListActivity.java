@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,34 +28,40 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuestionsListActivity extends BaseActivity implements
-        QuestionsListAdapter.OnQuestionClickListener {
+public class QuestionsListActivity extends BaseActivity  implements
+        QuestionsListViewMvc.MeroListener{
 
     private StackoverflowApi mStackoverflowApi;
+    private QuestionsListViewMvc mViewMvc;
 
-    private ListView mLstQuestions;
-    private QuestionsListAdapter mQuestionsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_questions_list);
+        mViewMvc = new QuestionsListViewMvc(LayoutInflater.from(this), null);
 
-        mLstQuestions = findViewById(R.id.lst_questions);
-        mQuestionsListAdapter = new QuestionsListAdapter(this, this);
-        mLstQuestions.setAdapter(mQuestionsListAdapter);
 
         mStackoverflowApi = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(StackoverflowApi.class);
+
+        setContentView(mViewMvc.getRoot());
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        mViewMvc.registerListener(this);
         fetchQuestions();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mViewMvc.unregisterListener(this);
     }
 
     private void fetchQuestions() {
@@ -81,9 +88,7 @@ public class QuestionsListActivity extends BaseActivity implements
         for (QuestionSchema questionSchema : questionSchemas) {
             questions.add(new Question(questionSchema.getId(), questionSchema.getTitle()));
         }
-        mQuestionsListAdapter.clear();
-        mQuestionsListAdapter.addAll(questions);
-        mQuestionsListAdapter.notifyDataSetChanged();
+        mViewMvc.bindQuestions(questions);
     }
 
     private void networkCallFailed() {
