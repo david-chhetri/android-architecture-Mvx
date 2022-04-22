@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../../../../layout/custom_preview.xml" value="0.24166666666666667" />
+        <entry key="app/src/main/res/layout/dialog_info.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/dialog_prompt.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/element_toolbar.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/layout_content_frame.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/layout_drawer.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/layout_question_details.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/layout_question_list_item.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/layout_questions_list.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/layout/layout_toolbar.xml" value="0.15989583333333332" />
+        <entry key="app/src/main/res/menu/menu_drawer.xml" value="0.3302083333333333" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>
