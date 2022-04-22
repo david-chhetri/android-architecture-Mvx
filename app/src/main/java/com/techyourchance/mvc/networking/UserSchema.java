@@ -1,4 +1,4 @@
-package com.techyourchance.mvc.networking.users;
+package com.techyourchance.mvc.networking;
 
 import com.google.gson.annotations.SerializedName;
 
