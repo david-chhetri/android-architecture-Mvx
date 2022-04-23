@@ -22,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class QuestionsListActivity extends BaseActivity  implements
-        QuestionsListViewMvcImpl.MeroListener{
+        QuestionsListViewMvc.Listener {
 
     private StackoverflowApi mStackoverflowApi;
     private QuestionsListViewMvc mViewMvc;
@@ -40,7 +40,7 @@ public class QuestionsListActivity extends BaseActivity  implements
                 .build()
                 .create(StackoverflowApi.class);
 
-        setContentView(mViewMvc.getRoot());
+        setContentView(mViewMvc.getRootView());
 
     }
 

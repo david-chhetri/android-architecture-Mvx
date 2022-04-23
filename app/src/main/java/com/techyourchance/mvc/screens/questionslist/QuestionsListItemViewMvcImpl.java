@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.Question;
+import com.techyourchance.mvc.screens.common.BaseViewMvc;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by David Chhetri on 22,April,2022
  */
-public class QuestionsListItemViewMvcImpl implements QuestionsListItemViewMvc {
+public class QuestionsListItemViewMvcImpl extends BaseViewMvc implements QuestionsListItemViewMvc {
 
     private final View mRootView;
     private final TextView mTxtTitle;
@@ -24,7 +25,7 @@ public class QuestionsListItemViewMvcImpl implements QuestionsListItemViewMvc {
     public QuestionsListItemViewMvcImpl(LayoutInflater inflater, ViewGroup parent) {
         mRootView = inflater.inflate(R.layout.layout_question_list_item,parent,false);
         mTxtTitle = findViewById(R.id.txt_title);
-        getRoot().setOnClickListener(new View.OnClickListener() {
+        getRootView().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 for(Listener listener : mListeners){
@@ -36,15 +37,10 @@ public class QuestionsListItemViewMvcImpl implements QuestionsListItemViewMvc {
 
     }
 
-    private <T extends View>T findViewById(int id) {
-        return getRoot().findViewById(id);
-    }
-
     @Override
     public void bindQuestion(Question question) {
         mQuestion = question;
         mTxtTitle.setText(question.getTitle());
-
     }
 
     @Override
@@ -57,9 +53,5 @@ public class QuestionsListItemViewMvcImpl implements QuestionsListItemViewMvc {
         mListeners.remove(listener);
     }
 
-    @Override
-    public View getRoot() {
-        return mRootView;
-    }
 
 }

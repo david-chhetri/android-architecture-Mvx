@@ -1,25 +1,21 @@
 package com.techyourchance.mvc.screens.questionslist;
 
-import android.view.View;
-
 import com.techyourchance.mvc.questions.Question;
+import com.techyourchance.mvc.screens.common.ObservableViewMvc;
+import com.techyourchance.mvc.screens.common.ViewMvc;
 
 import java.util.List;
 
 /**
  * Created by David Chhetri on 22,April,2022
  */
-public interface QuestionsListViewMvc {
+public interface QuestionsListViewMvc extends ObservableViewMvc<QuestionsListViewMvc.Listener> {
 
-    public interface MeroListener {
+    public interface Listener {
         void onQuestionClicked(Question question);
 
     }
-    void registerListener(MeroListener listener);
 
-    void unregisterListener(MeroListener listener);
-
-    View getRoot();
 
     void bindQuestions(List<Question> questions);
 

@@ -64,7 +64,7 @@ public class QuestionsRecyclerAdapter extends RecyclerView.Adapter<QuestionsRecy
         private final  QuestionsListItemViewMvc mViewMvc;
 
         public MyViewHolder(QuestionsListItemViewMvc itemView) {
-            super(itemView.getRoot());
+            super(itemView.getRootView());
             mViewMvc = itemView;
         }
 
