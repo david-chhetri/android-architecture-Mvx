@@ -14,6 +14,10 @@ public abstract class BaseViewMvc {
         return mRootView;
     }
 
+    public void setRootView(View rootView){
+        mRootView = rootView;
+    }
+
     public <T extends View>T findViewById(int id){
         return getRootView().findViewById(id);
     }
