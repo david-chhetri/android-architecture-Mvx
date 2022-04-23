@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.Question;
 import com.techyourchance.mvc.screens.common.BaseObservableViewMvc;
+import com.techyourchance.mvc.screens.common.ViewMvcFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +23,10 @@ public class QuestionsListViewMvcImpl
     private RecyclerView mRecyclerView;
     private QuestionsRecyclerAdapter mAdapter;
 
-    public QuestionsListViewMvcImpl(LayoutInflater inflater, ViewGroup parent) {
+    public QuestionsListViewMvcImpl(LayoutInflater inflater, ViewGroup parent, ViewMvcFactory factory) {
         setRootView(inflater.inflate(R.layout.layout_questions_list, parent, false));
         mRecyclerView = findViewById(R.id.recycler_questions);
-        mAdapter = new QuestionsRecyclerAdapter(inflater, this);
+        mAdapter = new QuestionsRecyclerAdapter(this, factory);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

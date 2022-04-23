@@ -29,9 +29,7 @@ public class QuestionsListActivity extends BaseActivity  implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mViewMvc = new QuestionsListViewMvcImpl(LayoutInflater.from(this), null);
-
-
+        mViewMvc = getCompositionRoot().getViewMvcFactory().getQuestionsListViewMvc(null);
         mStackoverflowApi = getCompositionRoot().getStackoverflowApi();
         setContentView(mViewMvc.getRootView());
 

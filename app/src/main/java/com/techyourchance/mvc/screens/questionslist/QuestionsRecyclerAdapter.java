@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import com.techyourchance.mvc.questions.Question;
+import com.techyourchance.mvc.screens.common.ViewMvcFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,19 +21,19 @@ public class QuestionsRecyclerAdapter extends RecyclerView.Adapter<QuestionsRecy
 
     private  QuestionsListItemViewMvc mViewMvc;
 
-    private final LayoutInflater mInflater;
     private final Listener mListener;
+    private final ViewMvcFactory mFactory;
     private List<Question> mQuestions = new ArrayList<>();
 
-    public QuestionsRecyclerAdapter(LayoutInflater inflater, Listener listener) {
-        mInflater = inflater;
+    public QuestionsRecyclerAdapter( Listener listener, ViewMvcFactory factory) {
         mListener = listener;
+        mFactory = factory;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
-        mViewMvc = new QuestionsListItemViewMvcImpl(mInflater,parent);
+        mViewMvc = mFactory.getQuestionListItemViewMvc(parent);
         mViewMvc.registerListener(this);
         return new MyViewHolder(mViewMvc);
     }

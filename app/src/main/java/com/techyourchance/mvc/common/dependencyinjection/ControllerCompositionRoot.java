@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 
 import com.techyourchance.mvc.CustomApplication;
 import com.techyourchance.mvc.networking.StackoverflowApi;
+import com.techyourchance.mvc.screens.common.ViewMvcFactory;
 import com.techyourchance.mvc.screens.questionslist.QuestionsListViewMvc;
 import com.techyourchance.mvc.screens.questionslist.QuestionsListViewMvcImpl;
 
@@ -32,8 +33,8 @@ public class ControllerCompositionRoot {
         return LayoutInflater.from(mActivity);
     }
 
-    public QuestionsListViewMvc getQuestionsListViewMvcImpl(){
-        return  new QuestionsListViewMvcImpl(getLayoutInflater(), null );
+    public ViewMvcFactory getViewMvcFactory(){
+        return new ViewMvcFactory(getLayoutInflater());
     }
 
 
