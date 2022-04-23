@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.Question;
+import com.techyourchance.mvc.screens.common.BaseObservableViewMvc;
 import com.techyourchance.mvc.screens.common.BaseViewMvc;
 
 import java.util.ArrayList;
@@ -15,7 +16,9 @@ import java.util.List;
 /**
  * Created by David Chhetri on 22,April,2022
  */
-public class QuestionsListItemViewMvcImpl extends BaseViewMvc implements QuestionsListItemViewMvc {
+public class QuestionsListItemViewMvcImpl
+        extends BaseObservableViewMvc<QuestionsListItemViewMvc.Listener>
+        implements QuestionsListItemViewMvc {
 
     private final View mRootView;
     private final TextView mTxtTitle;
@@ -42,16 +45,5 @@ public class QuestionsListItemViewMvcImpl extends BaseViewMvc implements Questio
         mQuestion = question;
         mTxtTitle.setText(question.getTitle());
     }
-
-    @Override
-    public void registerListener(Listener listener) {
-        mListeners.add(listener);
-    }
-
-    @Override
-    public void unregisterListener(Listener listener) {
-        mListeners.remove(listener);
-    }
-
 
 }
