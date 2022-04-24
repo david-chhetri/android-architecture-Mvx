@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 
 import com.techyourchance.mvc.CustomApplication;
 import com.techyourchance.mvc.networking.StackoverflowApi;
+import com.techyourchance.mvc.questions.FetchLastActiveQuestionsUseCase;
 import com.techyourchance.mvc.questions.FetchQuestionDetailsUsecase;
 import com.techyourchance.mvc.screens.common.ViewMvcFactory;
 import com.techyourchance.mvc.screens.questionslist.QuestionsListViewMvc;
@@ -41,6 +42,10 @@ public class ControllerCompositionRoot {
 
     public FetchQuestionDetailsUsecase getFetchQuestionDetailsUseCase() {
         return new FetchQuestionDetailsUsecase(getStackoverflowApi());
+    }
+
+    public FetchLastActiveQuestionsUseCase getFetchLastActiveQuestionsUseCase() {
+        return  new FetchLastActiveQuestionsUseCase(getStackoverflowApi());
     }
 
 }
