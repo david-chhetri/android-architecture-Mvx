@@ -6,9 +6,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
+import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.networking.QuestionDetailsResponseSchema;
 import com.techyourchance.mvc.networking.QuestionSchema;
 import com.techyourchance.mvc.networking.StackoverflowApi;
+import com.techyourchance.mvc.questions.FetchQuestionDetailsUsecase;
 import com.techyourchance.mvc.questions.QuestionDetails;
 import com.techyourchance.mvc.screens.common.BaseActivity;
 
@@ -19,11 +21,13 @@ import retrofit2.Response;
 /**
  * Created by David Chhetri on 24,April,2022
  */
-public class QuestionDetailsActivity extends BaseActivity {
+public class QuestionDetailsActivity extends BaseActivity
+            implements FetchQuestionDetailsUsecase.Listener{
 
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
-    private StackoverflowApi mStackoverflowApi;
     private QuestionDetailsViewMvc mViewMvc;
+
+    private FetchQuestionDetailsUsecase mFetchQuestionDetailsUsecase;
 
     public static void start(Context context, String questionId) {
         Intent intent = new Intent(context, QuestionDetailsActivity.class);
@@ -34,7 +38,7 @@ public class QuestionDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mStackoverflowApi = getCompositionRoot().getStackoverflowApi();
+        mFetchQuestionDetailsUsecase = getCompositionRoot().getFetchQuestionDetailsUseCase();
         mViewMvc = getCompositionRoot().getViewMvcFactory().getQuestionDetailsViewMvc(null);
         setContentView(mViewMvc.getRootView());
 
@@ -44,32 +48,19 @@ public class QuestionDetailsActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        fetchQuestionDetails();
+        mViewMvc.showProgressIndication();
+        mFetchQuestionDetailsUsecase.registerListener(this);
+        mFetchQuestionDetailsUsecase.fetchQuestionDetailsAndNotify(getQuestionId());
 
     }
 
-    private void fetchQuestionDetails() {
-        mStackoverflowApi.fetchQuestionDetails(getQuestionId())
-                .enqueue(new Callback<QuestionDetailsResponseSchema>() {
-                    @Override
-                    public void onResponse(Call<QuestionDetailsResponseSchema> call, Response<QuestionDetailsResponseSchema> response) {
-                        if(response.isSuccessful()){
-                            bindQuestionDetails(response.body().getQuestion());
-                        }else{
-                            networkCallFailed();
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<QuestionDetailsResponseSchema> call, Throwable t) {
-                        networkCallFailed();
-                    }
-                });
-    }
 
     @Override
     protected void onStop() {
         super.onStop();
+        mViewMvc.hideProgressIndication();
+        mFetchQuestionDetailsUsecase.unregisterListener(this);
 
     }
 
@@ -77,23 +68,18 @@ public class QuestionDetailsActivity extends BaseActivity {
         return getIntent().getStringExtra(EXTRA_QUESTION_ID);
     }
 
-    private void bindQuestionDetails(QuestionSchema questionSchema){
+
+    @Override
+    public void onQuestionDetailsFetched(QuestionDetails questionDetails) {
+        mViewMvc.bindQuestion(questionDetails);
         mViewMvc.hideProgressIndication();
-        mViewMvc.bindQuestion(
-                new QuestionDetails(
-                        questionSchema.getId(),
-                        questionSchema.getTitle(),
-                        questionSchema.getBody()
-                )
-        );
     }
 
-    private void networkCallFailed(){
+    @Override
+    public void onQuestionDetailsFetchFailure() {
         mViewMvc.hideProgressIndication();
-        Toast.makeText(this,"network call failed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.error_network_call_failed,Toast.LENGTH_SHORT).show();
     }
-
-
 
 }
 
