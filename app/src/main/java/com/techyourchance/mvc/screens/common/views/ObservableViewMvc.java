@@ -1,6 +1,4 @@
-package com.techyourchance.mvc.screens.common;
-
-import com.techyourchance.mvc.screens.questionslist.QuestionsListItemViewMvc;
+package com.techyourchance.mvc.screens.common.views;
 
 /**
  * Created by David Chhetri on 23,April,2022

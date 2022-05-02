@@ -6,7 +6,7 @@ import android.widget.Toast;
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.FetchLastActiveQuestionsUseCase;
 import com.techyourchance.mvc.questions.Question;
-import com.techyourchance.mvc.screens.common.BaseActivity;
+import com.techyourchance.mvc.screens.common.controllers.BaseActivity;
 import com.techyourchance.mvc.screens.questiondetails.QuestionDetailsActivity;
 
 import java.util.List;

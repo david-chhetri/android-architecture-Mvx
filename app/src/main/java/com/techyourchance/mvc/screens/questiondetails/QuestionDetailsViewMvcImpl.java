@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.QuestionDetails;
-import com.techyourchance.mvc.screens.common.BaseViewMvc;
+import com.techyourchance.mvc.screens.common.views.BaseViewMvc;
 
 /**
  * Created by David Chhetri on 24,April,2022

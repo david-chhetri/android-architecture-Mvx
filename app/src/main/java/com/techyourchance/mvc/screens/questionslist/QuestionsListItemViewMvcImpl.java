@@ -7,10 +7,7 @@ import android.widget.TextView;
 
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.Question;
-import com.techyourchance.mvc.screens.common.BaseObservableViewMvc;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.techyourchance.mvc.screens.common.views.BaseObservableViewMvc;
 
 /**
  * Created by David Chhetri on 22,April,2022

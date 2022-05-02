@@ -7,16 +7,9 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.techyourchance.mvc.R;
-import com.techyourchance.mvc.networking.QuestionDetailsResponseSchema;
-import com.techyourchance.mvc.networking.QuestionSchema;
-import com.techyourchance.mvc.networking.StackoverflowApi;
 import com.techyourchance.mvc.questions.FetchQuestionDetailsUsecase;
 import com.techyourchance.mvc.questions.QuestionDetails;
-import com.techyourchance.mvc.screens.common.BaseActivity;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.techyourchance.mvc.screens.common.controllers.BaseActivity;
 
 /**
  * Created by David Chhetri on 24,April,2022
