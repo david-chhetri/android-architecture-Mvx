@@ -15,7 +15,7 @@ import com.techyourchance.mvc.screens.common.controllers.BaseActivity;
  * Created by David Chhetri on 24,April,2022
  */
 public class QuestionDetailsActivity extends BaseActivity
-            implements FetchQuestionDetailsUsecase.Listener{
+            implements QuestionDetailsViewMvc.Listener, FetchQuestionDetailsUsecase.Listener{
 
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
     private QuestionDetailsViewMvc mViewMvc;
@@ -42,6 +42,7 @@ public class QuestionDetailsActivity extends BaseActivity
     protected void onStart() {
         super.onStart();
         mViewMvc.showProgressIndication();
+        mViewMvc.registerListener(this);
         mFetchQuestionDetailsUsecase.registerListener(this);
         mFetchQuestionDetailsUsecase.fetchQuestionDetailsAndNotify(getQuestionId());
 
@@ -53,6 +54,7 @@ public class QuestionDetailsActivity extends BaseActivity
     protected void onStop() {
         super.onStop();
         mViewMvc.hideProgressIndication();
+        mViewMvc.unregisterListener(this);
         mFetchQuestionDetailsUsecase.unregisterListener(this);
 
     }
@@ -72,6 +74,11 @@ public class QuestionDetailsActivity extends BaseActivity
     public void onQuestionDetailsFetchFailure() {
         mViewMvc.hideProgressIndication();
         Toast.makeText(this, R.string.error_network_call_failed,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNavigateUpClicked() {
+        onBackPressed();
     }
 
 }
