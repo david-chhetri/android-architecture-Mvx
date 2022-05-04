@@ -9,4 +9,5 @@
     android:minHeight="54dp"
     app:contentInsetRight="0dp"
     app:contentInsetStart="0dp"
-    app:contentInsetLeft="0dp"/>
+    app:contentInsetLeft="0dp"
+    app:contentInsetEnd="0dp"/>

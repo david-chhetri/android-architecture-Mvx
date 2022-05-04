@@ -45,7 +45,7 @@ public class QuestionDetailsViewMvcImpl extends BaseObservableViewMvc<QuestionDe
         mToolbarViewMvc.setTitle(getContext().getString(R.string.question_details_screen_title));
         mToolbarViewMvc.enableUpButtonAndListen(new ToolbarViewMvc.NavigateUpClickListener() {
             @Override
-            public void onNavigateUpClick() {
+            public void onNavigateUpClicked() {
                 for(Listener listener : getListeners()){
                     listener.onNavigateUpClicked();
                 }

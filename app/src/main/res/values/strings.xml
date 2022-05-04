@@ -2,4 +2,6 @@
     <string name="app_name">MVx</string>
     <string name="error_network_call_failed">network call failed</string>
     <string name="question_details_screen_title">Question Details</string>
+    <string name="drawer_menu_item_questions_list">Questions list</string>
+    <string name="question_list_screen_title">Questions List</string>
 </resources>

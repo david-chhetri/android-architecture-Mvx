@@ -51,6 +51,11 @@ public class QuestionsListActivity extends BaseActivity  implements
     }
 
     @Override
+    public void onQuestionsListClicked() {
+
+    }
+
+    @Override
     public void onQuestionsListFetchedSuccess(List<Question> questions) {
         mViewMvc.bindQuestions(questions);
 
