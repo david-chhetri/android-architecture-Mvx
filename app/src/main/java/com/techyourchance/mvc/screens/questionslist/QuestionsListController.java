@@ -64,5 +64,14 @@ public class QuestionsListController implements
         //this is the QuestionsList screen no op
     }
 
+    public Boolean onBackPressed() {
+        if(mViewMvc.isDrawerOpen()){
+            mViewMvc.closeDrawer();
+            return true;
+        }else {
+            return false;
+        }
+    }
+
 }
 

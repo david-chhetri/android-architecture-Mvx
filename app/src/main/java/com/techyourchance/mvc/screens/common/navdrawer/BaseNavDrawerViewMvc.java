@@ -18,11 +18,12 @@ import com.techyourchance.mvc.screens.common.views.BaseObservableViewMvc;
  * Created by David Chhetri on 03,May,2022
  */
 public abstract class BaseNavDrawerViewMvc<ListenerType>
-        extends BaseObservableViewMvc<ListenerType> {
+        extends BaseObservableViewMvc<ListenerType> implements NavDrawerViewMvc{
 
     private final DrawerLayout mDrawerLayout;
     private final FrameLayout mFrameLayout;
     private final NavigationView mNavigationView;
+
 
     public BaseNavDrawerViewMvc(LayoutInflater inflater, @Nullable ViewGroup parent) {
         super.setRootView(inflater.inflate(R.layout.layout_drawer,parent, false));
@@ -42,8 +43,8 @@ public abstract class BaseNavDrawerViewMvc<ListenerType>
         });
 
     }
-
-    protected void openDrawer(){
+    @Override
+    public void openDrawer(){
         mDrawerLayout.openDrawer(Gravity.START);
     }
 
@@ -53,6 +54,16 @@ public abstract class BaseNavDrawerViewMvc<ListenerType>
     public void setRootView(View view) {
         mDrawerLayout.addView(view);
 
+    }
+
+    @Override
+    public boolean isDrawerOpen() {
+        return mDrawerLayout.isDrawerOpen(Gravity.START);
+    }
+
+    @Override
+    public void closeDrawer() {
+        mDrawerLayout.closeDrawers();
     }
 
 }
