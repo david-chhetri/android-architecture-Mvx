@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.QuestionDetails;
 import com.techyourchance.mvc.screens.common.ViewMvcFactory;
+import com.techyourchance.mvc.screens.common.navdrawer.BaseNavDrawerViewMvc;
+import com.techyourchance.mvc.screens.common.navdrawer.DrawerItems;
 import com.techyourchance.mvc.screens.common.toolbar.ToolbarViewMvc;
 import com.techyourchance.mvc.screens.common.views.BaseObservableViewMvc;
 import com.techyourchance.mvc.screens.common.views.BaseViewMvc;
@@ -19,7 +21,7 @@ import com.techyourchance.mvc.screens.common.views.BaseViewMvc;
 /**
  * Created by David Chhetri on 24,April,2022
  */
-public class QuestionDetailsViewMvcImpl extends BaseObservableViewMvc<QuestionDetailsViewMvc.Listener>
+public class QuestionDetailsViewMvcImpl extends BaseNavDrawerViewMvc<QuestionDetailsViewMvc.Listener>
         implements QuestionDetailsViewMvc {
 
     private final TextView mTxtQuestionTitle;
@@ -30,6 +32,8 @@ public class QuestionDetailsViewMvcImpl extends BaseObservableViewMvc<QuestionDe
 
 
     public QuestionDetailsViewMvcImpl(LayoutInflater inflater, @Nullable ViewGroup parent, ViewMvcFactory factory) {
+        super(inflater,parent);
+
         setRootView(inflater.inflate(R.layout.layout_question_details, parent, false));
         mTxtQuestionTitle = findViewById(R.id.txt_question_title);
         mTxtQuestionBody = findViewById(R.id.txt_question_body);
@@ -70,6 +74,13 @@ public class QuestionDetailsViewMvcImpl extends BaseObservableViewMvc<QuestionDe
         mTxtQuestionTitle.setText(Html.fromHtml(questionDetails.getTitle()));
         mTxtQuestionBody.setText(Html.fromHtml(questionDetails.getBody()));
 
+    }
+
+    @Override
+    protected void onDrawerItemClicked(DrawerItems item) {
+        for(Listener listener : getListeners()){
+            listener.onDrawerItemClicked(item);
+        }
     }
 
 }

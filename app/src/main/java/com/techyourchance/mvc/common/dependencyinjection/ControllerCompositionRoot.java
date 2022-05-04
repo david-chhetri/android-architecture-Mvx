@@ -63,11 +63,11 @@ public class ControllerCompositionRoot {
                 getToastsHelper());
     }
 
-    private ToastsHelper getToastsHelper() {
+    public ToastsHelper getToastsHelper() {
         return new ToastsHelper(getContext());
     }
 
-    private ScreensNavigator getScreensNavigator() {
+    public ScreensNavigator getScreensNavigator() {
         return new ScreensNavigator(getContext());
     }
 

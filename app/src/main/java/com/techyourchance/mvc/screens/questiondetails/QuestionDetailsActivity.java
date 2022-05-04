@@ -10,6 +10,8 @@ import com.techyourchance.mvc.R;
 import com.techyourchance.mvc.questions.FetchQuestionDetailsUsecase;
 import com.techyourchance.mvc.questions.QuestionDetails;
 import com.techyourchance.mvc.screens.common.controllers.BaseActivity;
+import com.techyourchance.mvc.screens.common.navdrawer.DrawerItems;
+import com.techyourchance.mvc.screens.common.screensnavigator.ScreensNavigator;
 
 /**
  * Created by David Chhetri on 24,April,2022
@@ -19,6 +21,7 @@ public class QuestionDetailsActivity extends BaseActivity
 
     public static final String EXTRA_QUESTION_ID = "EXTRA_QUESTION_ID";
     private QuestionDetailsViewMvc mViewMvc;
+    private ScreensNavigator mScreensNavigator;
 
     private FetchQuestionDetailsUsecase mFetchQuestionDetailsUsecase;
 
@@ -33,6 +36,7 @@ public class QuestionDetailsActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         mFetchQuestionDetailsUsecase = getCompositionRoot().getFetchQuestionDetailsUseCase();
         mViewMvc = getCompositionRoot().getViewMvcFactory().getQuestionDetailsViewMvc(null);
+        mScreensNavigator = getCompositionRoot().getScreensNavigator();
         setContentView(mViewMvc.getRootView());
 
 
@@ -79,6 +83,25 @@ public class QuestionDetailsActivity extends BaseActivity
     @Override
     public void onNavigateUpClicked() {
         onBackPressed();
+    }
+
+    @Override
+    public void onDrawerItemClicked(DrawerItems item) {
+        switch (item){
+            case QUESTION_LIST:
+                mScreensNavigator.toQuestionsListClearTop();
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mViewMvc.isDrawerOpen()){
+            mViewMvc.closeDrawer();
+        }else {
+            super.onBackPressed();
+        }
+
     }
 
 }
